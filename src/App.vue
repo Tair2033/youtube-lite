@@ -1,30 +1,44 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <TheNavbar />
+  <Transition name="router">
+    <router-view />
+  </Transition>
 </template>
 
+<script lang="ts">
+import { defineComponent } from 'vue';
+import TheNavbar from './components/TheNavbar.vue';
+
+export default defineComponent({
+  name: 'App',
+  components: {
+    TheNavbar
+  }
+})
+
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;box-sizing: border-box;
 }
 
-nav {
-  padding: 30px;
+body {
+  font-family: 'Raleway', sans-serif;
+  overflow: hidden;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+.router-active,
+.router-active {
+  transition: opacity 0.5s ease;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.router-from,
+.router-to {
+  opacity: 0;
 }
 </style>
