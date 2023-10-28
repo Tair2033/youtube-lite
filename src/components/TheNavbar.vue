@@ -61,6 +61,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 .wrapper {
   border-bottom: 1px solid rgb(19, 19, 19);
+  width: 100%;
+  z-index: 20;
+  position: fixed;
 }
 
 .navbar {

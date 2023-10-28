@@ -7,15 +7,18 @@
         </Transition>
       </div>
 
-      <div class="home__sidebar">
-        <TheMainContent />
+      <div
+        class="home__content"
+        :class="{'hideside': getSidebarStatus()}"
+      >
+        <TheContent />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import TheMainContent from "@/components/TheMainContent.vue";
+import TheContent from "@/components/TheContent.vue";
 import TheSideBar from "@/components/TheSideBar.vue";
 import { defineComponent } from "vue";
 import store from '@/store'
@@ -24,7 +27,7 @@ export default defineComponent({
   name: "HomeView",
   components: {
     TheSideBar,
-    TheMainContent
+    TheContent
   },
   methods: {
     getSidebarStatus() {
@@ -37,9 +40,14 @@ export default defineComponent({
 <style lang="scss" scoped>
 .home {
   display: flex;
+  background-color: rgb(4, 4, 4);
 
-  &__sidebar {
-    background-color: rgb(4, 4, 4);
+  &__sidebar {}
+
+  &__content {
+    width: 100%;
+    margin-top: 90px;
+    transition: all 0.4s;
   }
 }
 
@@ -51,5 +59,9 @@ export default defineComponent({
 .sidebar-enter-from,
 .sidebar-leave-to {
   transform: translateX(-100%);
+}
+
+.hideside {
+  padding-left: 13vw;
 }
 </style>

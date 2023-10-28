@@ -7,6 +7,8 @@
             v-for="(item, id) in menu"
             :key="id"
             class="menu__item"
+            :class="{active: checkMenu(item.title)}"
+            @click="changeMenuItem(item.title)"
           >
             <div class="menu__logo">
               <i
@@ -26,6 +28,7 @@
 </template>
 
 <script lang="ts">
+import store from '@/store';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -42,19 +45,34 @@ export default defineComponent({
         { title: "Sport", icon: "fa-volleyball" },
       ]
     }
+  },
+  methods: {
+    checkMenu(title: string) {
+      return store.getters.getCurrentMenuItem == title ? true : false
+    },
+    changeMenuItem(title: string) {
+      store.commit('changeMenuItem', title)
+
+      store.dispatch('getVideos')
+    }
   }
 })
 
 </script>
 
 <style lang="scss" scoped>
-// border-bottom: 1px solid rgb(19, 19, 19);
+
+.active {
+  background-color: red;
+}
 
 .wrapper {
+  position: fixed;
   border-right: 1px solid rgb(19, 19, 19);
   background-color: black;
   min-width: 200px;
   width: 13vw;
+  z-index: 19;
 }
 
 .sidebar {
@@ -66,7 +84,7 @@ export default defineComponent({
 }
 
 .menu {
-  padding-top: 4vh;
+  padding-top: 120px;
   &__item {
     display: flex;
     margin: 4vh 20px;

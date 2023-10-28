@@ -11,7 +11,7 @@ const options = {
 }
 
 export const fetchFromAPI = async (url: string) => {
-  const { data }: any = await fetch(`${BASE_URL}/${url}`, options)
+  const data = await fetch(`${BASE_URL}/${url}`, options)
 
   return data
 }

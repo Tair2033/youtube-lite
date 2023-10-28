@@ -1,8 +1,10 @@
 <template>
-  <TheNavbar />
-  <Transition name="router">
-    <router-view />
-  </Transition>
+  <div class="app">
+    <TheNavbar />
+    <Transition name="router">
+      <router-view />
+    </Transition>
+  </div>
 </template>
 
 <script lang="ts">
@@ -22,6 +24,11 @@ export default defineComponent({
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css");
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap');
 
+.app {
+  position: relative;
+  background-color: rgb(4, 4, 4);
+}
+
 * {
   margin: 0;
   padding: 0;box-sizing: border-box;
@@ -29,7 +36,7 @@ export default defineComponent({
 
 body {
   font-family: 'Raleway', sans-serif;
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .router-active,
