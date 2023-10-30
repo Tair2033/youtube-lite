@@ -53,6 +53,10 @@ export default defineComponent({
     changeMenuItem(title: string) {
       store.commit('changeMenuItem', title)
 
+      window.scrollTo({
+        top: 0
+      })
+
       store.dispatch('getVideos')
     }
   }

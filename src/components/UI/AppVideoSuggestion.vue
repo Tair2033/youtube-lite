@@ -7,7 +7,7 @@
       <div class="card">
         <div class="card__image">
           <img
-            :src="video?.snippet?.thumbnails?.medium?.url"
+            :src="checkImage()"
             alt="preview"
           >
         </div>
@@ -28,7 +28,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import store from "@/store";
 
 export default defineComponent({
   name: 'TheSideBar',
@@ -42,36 +41,47 @@ export default defineComponent({
     return {
 
     }
+  },
+  methods: {
+    checkImage() {
+      if (this.video?.snippet?.thumbnails?.medium?.url == "") {
+        return "../../../public/noimg.jpg"
+      }
+
+      return this.video?.snippet?.thumbnails?.medium?.url
+    }
   }
 })
 
 </script>
 
 <style lang="scss" scoped>
-.videocard {}
+.videocard {
+}
 
 .wrapper {
   text-decoration: none;
 }
 
 .card {
-  height: 300px;
-  max-width: 300px;
+  display: flex;
+  flex-direction: row;
   overflow: hidden;
   transition: all 0.4s;
-  border-radius: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 5px;
 
   &__image {
-    overflow: hidden;
-    max-height: 180px;
     display: flex;
     object-fit: cover;
     border-radius: 10px;
+    height: 150px;
+    min-width: 260px;
   }
 
   &__image img{
     border-radius: 10px;
-    width: 100%;
+    width: auto;
     height: auto;
     padding: 3px;
   }
@@ -82,7 +92,6 @@ export default defineComponent({
 
   &__bottom-title {
     margin-top: 5px;
-    height: 45px;
     color: white;
     font-size: 18px;
     font-weight: 600;

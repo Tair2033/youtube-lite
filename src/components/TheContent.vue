@@ -59,7 +59,7 @@ export default defineComponent({
 }
 
 .wrapper {
-  background-color: rgb(4, 4, 4);
+  background-color: rgb(7, 7, 7);
   width: 100%;
 }
 
@@ -73,7 +73,7 @@ export default defineComponent({
     left: 13vh;
     right: 0;
     bottom: 0px;
-    background-color: black;
+    background-color: rgb(7, 7, 7);
     width: 100%;
     display: flex;
     justify-content: center;
@@ -82,7 +82,8 @@ export default defineComponent({
   }
 
   &__content {
-  overflow-y: auto;
+    min-height: 100vh;
+    overflow-y: auto;
     padding: 20px;
     padding-left: 30px;
     width: 100%;

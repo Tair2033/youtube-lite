@@ -3,6 +3,8 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
+    currentVideoStatistic: [],
+    suggestionVideos: [],
     videos: {
       isLoading: true,
       content: []
@@ -22,6 +24,12 @@ export default createStore({
     ]
   },
   getters: {
+    getCurrentVideoStatistic(state) {
+      return state.currentVideoStatistic
+    },
+    getSuggestionVideos(state) {
+      return state.suggestionVideos
+    },
     getVideosContent(state) {
       return state.videos.content
     },
@@ -52,17 +60,62 @@ export default createStore({
     }
   },
   actions: {
+    async searchVideos(context, searchRequest) {
+      context.commit('changeVideosLoadingStatus')
+
+      try {
+        await fetchFromAPI(`search?part=snippet&q=${searchRequest}&maxResults=50`)
+        .then((response) => response.json())
+        .then(data => {
+          context.state.videos.content = data.items
+
+          console.log(data);
+
+          context.commit('changeVideosLoadingStatus', 'off')
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async getVideos(context) {
       context.commit('changeVideosLoadingStatus')
 
-      fetchFromAPI(`search?part=snippet&q=${context.state.sidebar.activeItem}&maxResults=50`)
-      .then((data) => data.json())
-      .then(response => {
-        context.state.videos.content = response.items
+      try {
+        await fetchFromAPI(`search?part=snippet&q=${context.state.sidebar.activeItem}&maxResults=50`)
+        .then((response) => response.json())
+        .then(data => {
+          context.state.videos.content = data.items
 
-        context.commit('changeVideosLoadingStatus', 'off')
-      })
+          console.log(data.items);
+
+          context.commit('changeVideosLoadingStatus', 'off')
+        })
+      } catch (error) {
+        console.log(error);
+      }
     },
+    async getRelatedVideos(context, videoId) {
+      try {
+        await fetchFromAPI(`search?part=snippet&relatedToVideoId=${videoId}&type=video`)
+        .then(r => r.json())
+        .then(data => {
+          context.state.suggestionVideos = data.items
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getVideoStatistic(context, videoId) {
+      try {
+        await fetchFromAPI(`videos?part=snippet,statistics&id=${videoId}`)
+        .then(r => r.json())
+        .then(data => {
+          context.state.currentVideoStatistic = data.items[0];
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    }
   },
   modules: {}
 })

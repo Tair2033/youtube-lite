@@ -11,27 +11,37 @@
             style="color: #ffffff;"
           />
         </div>
-        <div class="navbar__logo-img">
-          <router-link to="/">
-            <img
-              src="https://i.ibb.co/s9Qys2j/logo.png"
-              alt="logo"
-            >
-          </router-link>
-        </div>
+
+        <router-link to="/">
+          <div class="navbar__link">
+            <div class="navbar__link-img">
+              <img
+                src="https://i.ibb.co/s9Qys2j/logo.png"
+                alt="logo"
+              >
+            </div>
+
+            <div class="navbar__title">
+              Youtube Lite
+            </div>
+          </div>
+        </router-link>
       </div>
 
       <div class="navbar__search">
         <div class="navbar__search-input">
           <input
+            v-model="searchRequest.text"
             type="text"
             placeholder="Search"
+            @keydown="searchVideosKeyboard"
           >
         </div>
         <div class="navbar__search-btn">
           <button
             type="button"
             class="navbar__search-button"
+            @click="searchVideos()"
           >
             <i class="fa-solid fa-magnifying-glass" />
           </button>
@@ -49,7 +59,24 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'TheNavbar',
+  data() {
+    return {
+      searchRequest: {
+        text: ""
+      }
+    }
+  },
   methods: {
+    searchVideos() {
+      if (this.searchRequest.text.length != 0) {
+        store.dispatch('searchVideos', this.searchRequest.text.trim())
+      }
+    },
+    searchVideosKeyboard(e: KeyboardEvent) {
+      if (this.searchRequest.text.length != 0 && e.key == "Enter") {
+        store.dispatch('searchVideos', this.searchRequest.text.trim())
+      }
+    },
     toggleSidebar() {
       store.commit('changeSidebarStatus')
     }
@@ -73,6 +100,20 @@ export default defineComponent({
   padding: 10px;
   background-color: black;
   font-family: 'Raleway', sans-serif;
+
+  &__title {
+    color: white;
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.4s;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+  }
   
   &__logo {
     display: flex;
@@ -80,17 +121,27 @@ export default defineComponent({
     margin-left: 20px;
   }
 
+  &__logo a {
+    text-decoration: none;
+  }
+
+  &__logo a:hover {
+    .navbar__title {
+      color: red;
+    }
+  }
+
   &__hamburger {
     font-size: 30px;
     cursor: pointer;
   }
 
-  &__logo-img {
+  &__link-img {
     display: flex;
     margin-left: 15px;
   }
 
-  &__logo-img img{
+  &__link-img img{
     max-width: 60px;
   }
 
@@ -99,6 +150,7 @@ export default defineComponent({
     align-items: center;
     background-color: white;
     padding: 10px;
+    margin-right: 200px;
     border-radius: 20px;
   }
 
@@ -109,19 +161,25 @@ export default defineComponent({
     outline: none;
   }
 
-  .navbar__search-button {
+  &__search-button {
     border: none;
-    cursor: pointer;
     background: none;
     border-radius: 20px;
+    cursor: pointer;
     transition: all 0.4s;
   }
 
-  .navbar__search-button:hover {
-    color: orange;
+  &__search-btn {
+    cursor: pointer;
   }
 
-  .navbar__search-button i{
+  &__search-btn:hover {
+    i {
+      color: orange;
+    }
+  }
+
+  &__search-button i{
     font-size: 25px;
   }
 
