@@ -1,24 +1,7 @@
-# youtube-lite
+# Youtube Lite
 
-## Project setup
-```
-npm install
-```
+> ### Сайт, копирующий функционал оригинального youtube.com, но более легковесный и быстрый.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Preview
+https://github.com/Tair2033/youtube-lite/assets/63341187/9db6538d-9dcf-4642-ae24-eb5d53391781
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
