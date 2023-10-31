@@ -331,4 +331,18 @@ export default defineComponent({
     flex-direction: column;
   }
 }
+
+@media (max-width: 1470px) {
+  .video {
+    flex-direction: column;
+  }
+
+  .video__content {
+    width: 100%;
+  }
+
+  .wrapper {
+    padding: 20px;
+  }
+}
 </style>

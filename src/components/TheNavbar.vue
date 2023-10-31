@@ -70,11 +70,17 @@ export default defineComponent({
     searchVideos() {
       if (this.searchRequest.text.length != 0) {
         store.dispatch('searchVideos', this.searchRequest.text.trim())
+        window.scrollTo({
+          top: 0
+        })
       }
     },
     searchVideosKeyboard(e: KeyboardEvent) {
       if (this.searchRequest.text.length != 0 && e.key == "Enter") {
         store.dispatch('searchVideos', this.searchRequest.text.trim())
+        window.scrollTo({
+          top: 0
+        })
       }
     },
     toggleSidebar() {
